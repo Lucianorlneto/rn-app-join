@@ -2,9 +2,9 @@ export default AppColors = {
   colors: {
     background: '#f4f9fd',
     font: '#434e5a',
-    primary: '#0569b5',
+    primary: '#00b7ce',
     textOnPrimary: 'white',
-    secondary: 'blue',
+    secondary: '#00b7ce',
     textOnSecondary: 'white',
   },
 };

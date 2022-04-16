@@ -3,7 +3,9 @@ import { Alert } from 'react-native';
 
 interface AuthContextData{
     isLoggedIn: boolean;
-    user: object;
+    user: {
+      name: string
+    };
     login: (user: string, pass: string) => void;
     logout: () => void;
 }
@@ -11,7 +13,7 @@ interface AuthContextData{
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
 
   function login(user: string, pass: string) {

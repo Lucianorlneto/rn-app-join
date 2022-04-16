@@ -10,6 +10,8 @@ import {
 
 import CategoriaForm from '~/screens/Categorias/CategoriaForm/CategoriaForm';
 
+import ProdutoForm from '~/screens/Produtos/ProdutoForm/ProdutoForm';
+
 import AuthContext from '~/context/auth';
 
 import { AppColors } from '~/styles';
@@ -23,6 +25,15 @@ const CategoriasScreensStack = () => (
     <CategoriasStack.Screen name="Categorias" component={Categorias} />
     <CategoriasStack.Screen name="Categoria" component={CategoriaForm} />
   </CategoriasStack.Navigator>
+);
+
+const ProdutosStack = createNativeStackNavigator();
+
+const ProdutosScreensStack = () => (
+  <ProdutosStack.Navigator initialRouteName="">
+    <ProdutosStack.Screen name="Produtos" component={Produtos} />
+    <ProdutosStack.Screen name="Produto" component={ProdutoForm} />
+  </ProdutosStack.Navigator>
 );
 
 const HomeStack = createBottomTabNavigator();
@@ -43,7 +54,7 @@ const Main: () => Node = () => {
               iconName = focused
                 ? 'account'
                 : 'account-outline';
-            } else if (route.name === 'Produtos') {
+            } else if (route.name === 'ProdutosStack') {
               iconName = focused ? 'archive' : 'archive-outline';
             } else if (route.name === 'CategoriasStack') {
               iconName = focused ? 'layers-triple' : 'layers-triple-outline';
@@ -57,10 +68,11 @@ const Main: () => Node = () => {
         })}
       >
         <HomeStack.Screen
-          name="Produtos"
-          component={Produtos}
+          name="ProdutosStack"
+          component={ProdutosScreensStack}
           options={{
             headerTitleAlign: 'center',
+            title: 'Produtos',
           }}
         />
         <HomeStack.Screen

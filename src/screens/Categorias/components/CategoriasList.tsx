@@ -4,7 +4,7 @@ import {
   View, Text, FlatList, TouchableOpacity,
 } from 'react-native';
 
-import { ListSeparator } from '~/styles/globalStyles';
+import { Container, ListSeparator, Title1 } from '~/styles/globalStyles';
 
 interface Props{
     data: Array<object>;
@@ -31,15 +31,21 @@ const CategoriasList: React.FC<Props> = ({ data }) => {
     );
   }
 
-  return (
-    <FlatList
-      style={{ width: '100%' }}
-      data={data}
-      renderItem={({ item }) => renderItem({ item })}
-      keyExtractor={(item) => item.id}
-      ItemSeparatorComponent={FlatListItemSeparator}
-    />
-  );
+  return (data
+    ? (
+      <FlatList
+        style={{ width: '100%' }}
+        data={data}
+        renderItem={({ item }) => renderItem({ item })}
+        keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={FlatListItemSeparator}
+      />
+    )
+    : (
+      <Container>
+        <Title1>Não há categorias cadastradas</Title1>
+      </Container>
+    ));
 };
 
 export default CategoriasList;

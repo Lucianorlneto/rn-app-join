@@ -3,8 +3,9 @@ import {
   KeyboardAvoidingView, ScrollView, TextInput, View,
 } from 'react-native';
 
-import { Container, Title1, Title2 } from '~/styles/globalStyles';
-import { Input } from './styles';
+import {
+  Container, Title1, Title2, Input,
+} from '~/styles/globalStyles';
 
 import { ActionButton } from '~/components';
 
@@ -21,26 +22,40 @@ const Login: React.FC = ({ navigation }) => {
   }
 
   return (
-    <Container>
-      {/* <ScrollView contentContainerStyle={{ justifyContent: 'center', alignContent: 'center' }} keyboardShouldPersistTaps="handled"> */}
-      <KeyboardAvoidingView>
-        <Title1> LOGIN </Title1>
-        <View>
-          <Title2>Usuário</Title2>
-        </View>
-        <Input
-          onChangeText={(text) => setUserText(text)}
-          value={userText}
-        />
-        <Title2>Senha</Title2>
-        <TextInput
-          onChangeText={(text) => setPassText(text)}
-          value={passText}
-        />
-        <ActionButton onPress={() => handleLogin(userText, passText)} text="ENTRAR" />
-      </KeyboardAvoidingView>
-      {/* </ScrollView> */}
-    </Container>
+    <ScrollView
+      contentContainerStyle={{
+        justifyContent: 'center', alignContent: 'center', flex: 1,
+      }}
+      keyboardShouldPersistTaps="handled"
+    >
+      <Container>
+        <KeyboardAvoidingView>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <Title1> LOGIN </Title1>
+            <Title2>Insira suas credenciais abaixo</Title2>
+          </View>
+          <View style={{ marginBottom: 12 }}>
+            <Title2 style={{ textAlign: 'left' }}>Usuário</Title2>
+            <Input
+              onChangeText={(text) => setUserText(text)}
+              value={userText}
+              placeholder="admin/admin2"
+            />
+          </View>
+          <View style={{ marginBottom: 12 }}>
+            <Title2 style={{ textAlign: 'left' }}>Senha</Title2>
+            <Input
+              onChangeText={(text) => setPassText(text)}
+              value={passText}
+              placeholder="123456"
+            />
+          </View>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <ActionButton onPress={() => handleLogin(userText, passText)} text="ENTRAR" />
+          </View>
+        </KeyboardAvoidingView>
+      </Container>
+    </ScrollView>
   );
 };
 

@@ -1,38 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
-import { AddButton } from '~/components';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useIsFocused } from '@react-navigation/native';
+import { ActionButton, AddButton } from '~/components';
 import { Container } from '~/styles/globalStyles';
-
+import AuthContext from '~/context/auth';
 import ProdutosList from './components/ProdutosList';
 
-const produtosData = [
-  {
-    id: 0,
-    title: 'produto 1',
-    category: 'categoria 2',
-  },
-  {
-    id: 1,
-    title: 'produto 2',
-    category: 'categoria 3',
-  },
-  {
-    id: 2,
-    title: 'produto 3',
-    category: 'categoria 6',
-  },
-  {
-    id: 3,
-    title: 'produto 4',
-    category: 'categoria 3',
-  },
-];
+const Produtos: React.FC = ({ navigation }) => {
+  const { user } = useContext(AuthContext);
 
-const Produtos: React.FC = () => (
-  <Container>
-    <ProdutosList data={produtosData} />
-    <AddButton onPress={() => console.log('add')} />
-  </Container>
-);
+  const [produtosData, setProdutosData] = useState([]);
+  const isFocused = useIsFocused();
+
+  async function getProducts() {
+    try {
+      const allStorage = await AsyncStorage.getAllKeys();
+
+      let products = allStorage.filter((key) => {
+        if (key.includes(`@${user.name}_Product`)) {
+          return key;
+        }
+      });
+
+      products = await AsyncStorage.multiGet(products);
+
+      products = products.map((product) => JSON.parse(product[1]));
+
+      setProdutosData(products);
+    } catch (error) {
+
+    }
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      getProducts();
+    }
+  }, [isFocused]);
+
+  return (
+    <Container>
+      <ProdutosList data={produtosData.length ? produtosData : null} />
+      <AddButton onPress={() => navigation.push('Produto')} />
+    </Container>
+  );
+};
 
 export default Produtos;
