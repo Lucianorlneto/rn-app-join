@@ -8,22 +8,29 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 
 import Toast from 'react-native-toast-message';
+import SplashScreen from 'react-native-splash-screen';
 import Main from './navigation/Main';
 
-import AuthContext, { AuthProvider } from './context/auth';
+import { AuthProvider } from './context/auth';
 
-const App: () => Node = () => (
-  <NavigationContainer>
-    <AuthProvider>
-      <Main />
-    </AuthProvider>
-    <Toast />
-  </NavigationContainer>
-);
+const App: () => Node = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  });
+
+  return (
+    <NavigationContainer>
+      <AuthProvider>
+        <Main />
+      </AuthProvider>
+      <Toast />
+    </NavigationContainer>
+  );
+};
 
 export default App;
