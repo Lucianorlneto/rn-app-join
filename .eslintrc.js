@@ -14,6 +14,14 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    'prettier/prettier': 'error',
+    'no-use-before-define': 'off',
+    'react/jsx-filename-extension': [0],
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
   },
 };
